@@ -1,0 +1,44 @@
+{% extends "ml/base_core.html" %}
+
+{% block title %}RankKeeper - Supported Sites{% endblock %}
+
+{% block content %}
+
+<h2>List of supported sites</h2>
+<p>
+Here you can see which sites can be used to rate items. If you wish that your favorite site would be supported, please <a href="{% url ml_contact %}" class="fancylink">contact us</a> and let us know!  
+</p>
+
+<h3>IMDb</h3>
+<h4>Pasting links</h4>
+<p>
+Using IMDb, you can rate movies, tv shows and tv show episodes. Rating an item is easy: 
+just paste the url from IMDb into the textfield and press the Add button. Here's some examples:
+</p>
+<ul>
+	<li><a target="_blank" href="http://www.imdb.com/title/tt0898266">http://www.imdb.com/title/tt0898266</a> - "The Big Bang Theory" - A TV Show</li>
+	<li><a target="_blank" href="http://www.imdb.com/title/tt0209144">http://www.imdb.com/title/tt0209144</a> - "Memento" - A movie</li>
+	<li><a target="_blank" href="http://www.imdb.com/title/tt1632224">http://www.imdb.com/title/tt1632224</a> - "The Robotic Manipulation" - An episode of a TV Show</li>
+</ul> 
+<h4>Set up site sync to import your vote history automatically every night</h4>
+<p>
+IMDb keeps track of everything you've voted on, but it doesn't store the date of your vote, or when your vote changed. You can set up RankKeeper
+ to import your vote history automatically every night, and it will automatically keep track of your ratings. You can continue to use IMDb to rate stuff 
+ and use RankKeeper to keep progress, or you can switch to RankKeeper altogether. It's your choice.
+</p>
+<p>
+To set up the synchronization you must first mark your IMDb vote history as public. Use this page: <a class="fancylink" target="_blank" href="http://www.imdb.com/mymovies/list?votehistory">http://www.imdb.com/mymovies/list?votehistory</a>.<br/>
+</p>
+<img src="/static/images/source/imdb_example.png"/>
+<p>
+After you've made your vote history public, go to <a href="{% url ml_import %}" class="fancylink">this page on RankKeeper</a> to add your list to be imported. The link to your list page should look like this:
+</p>
+<ul><li>http://www.imdb.com/mymovies/list?l=01234567</li></ul>
+<p>RankKeeper will now update your ratings from IMDb every night. Every time you change a rating on IMDb, RankKeeper will add a new rating for you here. You can change your progress and status for the imported ratings 
+on RankKeeper without the importer adding a new rating.</p>
+<p>
+Technical note: the importer can perform its work a lot faster if you increase the number of titles on your vote history page.
+</p>
+
+<br/>
+{% endblock %}

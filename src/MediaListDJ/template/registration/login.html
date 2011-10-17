@@ -1,0 +1,15 @@
+{% extends "ml/base_core.html" %}
+
+{% block content %}
+
+{% if form.errors %}
+    <br/>
+    <center>
+    <span class="error">Sorry, that's not a valid username or password</span>
+    </center>
+    <br/>
+{% endif %}
+	<center>
+	{% include "ml/data_login.html" %}
+	</center>
+{% endblock %} 

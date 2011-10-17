@@ -1,0 +1,23 @@
+{% extends "ml/base_core.html" %}
+
+{% block title %}{{ media.name }} - RankKeeper{% endblock %}
+
+{% load ml_extras %}
+
+{% block content %}
+
+<h2>Report missing/incorrect information</h2>
+
+<h3><a href="{% url ml_media media.id %}">{{ media.name }}</a></h3>
+
+<p>
+Thank you for your feedback. We'll fix it as soon as possible!
+</p>
+<br/>
+
+<a href="{% url ml_home %}">Back to main page</a> | <a href="{% url ml_media media.id %}">Back to {{ media.name }}</a>
+<br/>
+<br/>
+<br/>
+
+{% endblock %}

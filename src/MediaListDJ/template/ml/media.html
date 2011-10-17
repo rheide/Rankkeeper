@@ -1,0 +1,115 @@
+{% extends "ml/base_core.html" %}
+
+{% block title %}{{ media.name }} - RankKeeper{% endblock %}
+
+{% load ml_extras %}
+
+{% block content %}
+
+{% if media.parent %}
+<h4><a href="{% url ml_media media.parent.id %}">{{ media.parent.name }}</a></h4>
+{% endif %}
+<h2>{{ media.name }}</h2>
+
+<div id="media_info">
+<table>
+	<tr>
+		<td>Type:</td>
+		<td>
+		{% if disp_user.id %}
+		<a href="{% url ml_list-type disp_user.username media.type.name|urlify %}/">{{ media.type.name }}</a>
+		{% else %}{{ media.type.name }}{% endif %}
+		</td>
+	</tr>
+	<tr>
+		<td>Length:</td>
+		<td>{{ media.mediainfo.duration }} {{ media.type.duration_unit }}</td>
+	</tr>
+	<tr>
+		<td>Average:</td>
+		<td>{{ average|star_ro }}</td>
+	</tr>
+	<tr>
+		<td>Times rated:</td>
+		<td>{{ total_count }} times by {{ unique_count }} users.</td>
+	</tr>
+</table>
+<p>
+The average score is based on the average of each user's highest rating for this item. 
+</p>
+</div>
+
+<div id="media_sources">
+<h3>Links</h3>
+<ul>
+{% for ms in sources %}
+	<li>
+		<a href="{{ ms.url }}" target="_blank">
+			<img src="/static/images/source/{{ ms.source.name|lower }}.gif"/>
+			{{ ms.source.name }}
+		</a>
+	</li>
+{% endfor %}
+</ul>
+</div>
+
+
+{% if user.is_authenticated %}
+<div id="media_ratings" style="width: 100%">
+<h3>Your ratings</h3>
+<form action="{% url ml_addrating %}" method="post">
+{% csrf_token %}
+<input type="hidden" id="media_id" name="media_id" value="{{ media.id }}" />
+<input type="hidden" name="media_rating" id="media_rating" value="0" />
+<table>
+	<tr>
+		<th>Date</th>
+		<th>Status</th>
+		<th>Rating</th>
+		<th>&nbsp;</th>
+	</tr>
+	<tr>
+		<td style="text-align: left; width: 9em;">
+			<input type="text" id="media_date" name="media_date" value="{% now "Y-m-d" %}" style="width: 95%" />
+		</td>
+		<td class="mlstatus">
+			<select style="width:100%" id="media_status" name="media_status">
+			{% for s in statuses|hash:media.type.id %}
+				<option value="{{ s.id }}">{{ s.name }}</option>
+			{% endfor %}
+			</select>
+		</td>
+		<td class="mlprogress">
+			{{ 0|star:-1 }}
+		</td>
+		<td style="width: 3em;">
+			<input type="submit" value="Add" />
+		</td>
+	</tr>
+</table>
+</form>
+</div>
+
+{% include "ml/data_ratinglist.html" %}
+
+{% endif %}
+
+{% if children %}
+<h3>Child items</h3>
+<!-- this should really be a rating list.. -->
+<ul>
+{% for child in children %}
+	<li>
+		<a href="{% url ml_media child.id %}">{{ child.name }}</a>
+	</li>
+{% endfor %}
+</ul>
+
+{% endif %}
+
+<a href="{% url ml_home %}">Back to main page</a> | <a href="{% url ml_media_notify media.id %}">Report incorrect/missing information</a>
+<br/>
+<br/>
+<br/>
+
+{% endblock %}

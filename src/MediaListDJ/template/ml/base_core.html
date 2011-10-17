@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    	               "http://www.w3.org/TR/html4/loose.dtd">
+{% load ml_extras %}
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	{% block meta %}{% endblock %}
+	<title>{% block title %}RankKeeper{% endblock %}</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/ui-lightness/jquery-ui.css" />	
+	<link href="/static/images/favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
+	
+	<script src="/static/js/jquery.js" language="javascript" type="text/javascript"></script>
+	<script src="/static/js/jquery-ui.js" language="javascript" type="text/javascript"></script>
+	<script src="/static/js/base64.js" language="javascript" type="text/javascript"></script>
+	<script src="/static/js/medialist.js" language="javascript" type="text/javascript"></script>
+	
+	<script type="text/javascript">
+	  	var _gaq = _gaq || [];
+  		_gaq.push(['_setAccount', 'UA-18895781-1']);
+  		_gaq.push(['_trackPageview']);
+  		(function() {
+    		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  		})();
+	</script>
+</head>
+
+<body>
+
+
+<div id="header">
+
+	<div id="menu">
+		<span class="title"><a href="{% url ml_home %}">RankKeeper</a></span>
+	</div>
+
+	<div id="navbar">
+	
+		<div id="search">
+			{% block search %}
+			<form name="search" method="get" action="{% url haystack_search %}" >
+				<input type="hidden" name="t" value="{% if type %}{{ type.id }}{% endif %}" />
+				<input type="text" name="q" size="16"/>
+				<input type="submit" value="Search"/>
+			</form>
+			{% endblock %}
+		</div>
+		
+		{% if disp_user.id %}
+		<div id="typelist">
+			<ul>
+			{% for mtrow in media_types %}
+				{% if forloop.counter = 1 %}
+					<li {% if not type.id %} class="selected"{% endif %}>
+						<a href="{% url ml_list disp_user.username %}">
+							{% if user.username = disp_user.username %}My stuff{% else %}{{ disp_user.username }}'s stuff{% endif %}
+						</a>
+					</li>
+				{% endif %}
+				{% for mt in mtrow %}
+					<li {% if type.id = mt.id %} class="selected" {% endif %}>
+						<a href="{% url ml_list-type disp_user.username mt.name|urlify %}">
+							{{ mt.name }}
+						</a>
+					</li>
+				{% endfor %}
+			{% endfor %}
+			</ul>
+		</div>
+		{% endif %}
+	
+		{% if disp_user.id and type  %}
+		<div id="statuslist">
+			<ul>
+				<li {% if not status %}class="selected"{% endif %}>
+					<a href="{% url ml_list-type disp_user.username type.name|urlify %}">All</a></li>
+				{% for s in statuses|hash:type.id %}
+					<li {% if status.id = s.id %} class="selected"{% endif %}>
+						<a href="{% url ml_list-typestatus disp_user.username type.name|urlify s.name|urlify %}">
+							{{ s.name }}
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+		{% endif %}
+	</div>
+</div>
+
+<div id="content">
+
+	<div id="ml_msg">
+	{% if ml_error %}
+	<br/><br/>
+	<span class="error">{{ ml_error }}</span>
+	<br/><br/>
+	{% endif %}
+	{% if ml_info %}
+	<br/><br/>
+	<span class="info">{{ ml_info }}</span>
+	<br/><br/>
+	{% endif %}
+	</div>
+	
+	{% block content %}{% endblock %}
+
+</div>
+	
+<div id="footer">
+{% block footer %}{% endblock %}
+<hr/>
+<ul class="buttons">
+		<li><a href="{% url ml_static 'about' %}">About</a></li>
+		<li><a href="{% url ml_contact %}">Contact us</a></li>
+		{% if user.is_authenticated %}<li><a href="{% url ml_import %}">SiteSync</a></li>{% endif %}
+		{% if user.is_authenticated %}
+		<li><a href="{% url ml_profile user.username %}">My profile</a></li>
+		<li><a href="{% url auth_logout %}">Log out</a></li>
+		{% else %}
+		<li><a href="{% url auth_login %}">Log in</a></li>
+		{% endif %}
+</ul>
+<div class="copyright">©RankKeeper 2010</div>
+</div>
+
+
+</body>
+</html>

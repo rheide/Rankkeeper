@@ -1,0 +1,38 @@
+{% extends "ml/base_core.html" %}
+
+{% block title %}{{ media.name }} - RankKeeper{% endblock %}
+
+{% load ml_extras %}
+
+{% block content %}
+
+<h2>Report missing/incorrect information</h2>
+
+<h3><a href="{% url ml_media media.id %}/">{{ media.name }}</a></h3>
+
+{% if user.is_authenticated %}
+<form name="notify" action="." method="POST">
+{% csrf_token %}
+Please write down what you think should be changed about this item: <br/>
+<input type="text" name="message" size="80" />
+<br/><br/>
+Please describe your suggestion in detail:<br/>
+<textarea rows="10" cols="80" name="info">
+example: duration should be x minutes, or should be merged with other media
+</textarea>
+<br/>
+<input type="submit" value="Send" />
+</form>
+{% else %}
+<br/>
+<span class="error">You must be logged in to make a report</span>
+<br/>
+{% endif %}
+<br/>
+
+<a href="{% url ml_home %}">Back to main page</a> | <a href="{% url ml_media media.id %}/">Back to {{ media.name }}</a>
+<br/>
+<br/>
+<br/>
+
+{% endblock %}

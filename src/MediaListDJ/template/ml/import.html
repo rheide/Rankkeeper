@@ -1,0 +1,70 @@
+{% extends "ml/base_core.html" %}
+
+{% load ml_extras %}
+
+{% block title %}RankKeeper - Import{% endblock %}
+
+{% block content %}
+
+
+<h2>Import</h2>
+
+<p>
+You can add lists from other websites to be imported into your RankKeeper account. 
+The ratings from these sites will then automatically be imported into your account every night. 
+</p>
+<p>
+<a class="fancylink" href="{% url ml_static 'supported_sites' %}">Click here for a list of supported websites</a>
+</p>
+
+<form name="add" action="{% url ml_import_add %}" method="POST">
+{% csrf_token %}
+<table>
+	<tr>
+		<td colspan="2">Paste the url of your rating list to add here. </td>
+	</tr>
+	<tr>
+		<td>
+			<input type="text" size="80" value="" name="site" />
+		</td>
+		<td>
+			<input type="submit" value="Add" />
+		</td>
+	</tr>
+</table>
+</form>
+<br/>
+<table style="width:100%">
+	<tr style="text-align:left;">
+		<th>Site</th>
+		<th>Url</th>
+		<th>Last import</th>
+		<th>Last result</th>
+		<th>&nbsp;</th>
+	</tr>
+	{% for task in tasks %}
+	<tr>
+		<td><a href="http://{{ task.source.domain }}" target="_blank">{{ task.source.name }}</a></td>
+		<td><a href="{{ task.url }}" target="_blank">{{ task.url }}</a></td>
+		<td>
+			{% if task.lastImportDate %}
+				{{ task.lastImportDate|date:"Y-m-d H:i:s" }}
+			{% endif %}
+		</td>
+		<td>
+			{% if task.lastResult = 3 %}-{% endif %}
+			{% if task.lastResult = 0 %}OK{% endif %}
+			{% if task.lastResult = 2 %}Running{% endif %}
+			{% if task.lastResult = 1 %}Failed{% endif %}
+		</td>
+		<td width="64px">
+			<form action="{% url ml_import_delete task.id %}" method="post">
+				{% csrf_token %}
+				<input type="submit" value="Delete"/>
+			</form>
+		</td>
+	</tr>
+	{% endfor %}
+</table>
+<br/>
+{% endblock %}

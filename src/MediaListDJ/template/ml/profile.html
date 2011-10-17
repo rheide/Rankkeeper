@@ -1,0 +1,42 @@
+{% extends "ml/base_core.html" %}
+
+{% block title %}{{ disp_user.username }} - RankKeeper{% endblock %}
+
+{% load ml_extras %}
+
+{% block content %}
+
+<h2>{{ disp_user.username }}</h2>
+
+<div id="user_info">
+<table>
+	<tr>
+		<td>User:</td>
+		<td>{{ disp_user.username }}</td>
+	</tr>
+	<tr>
+		<td>E-mail:</td>
+		<td>{{ disp_user.email }}</td>
+	</tr>
+	<tr>
+		<td>Last login:</td>
+		<td>{{ disp_user.last_login }}</td>
+	</tr>
+	<tr>
+		<td>Joined:</td>
+		<td>{{ disp_user.date_joined }}</td>
+	</tr>
+</table>
+<br/>
+<ul style="display: inline;">
+	<li><a href="{% url auth_password_change %}">Change password</a></li>
+</ul>
+</div>
+<br/>
+
+<a href="{% url ml_home %}">Back to main page</a>
+<br/>
+<br/>
+<br/>
+
+{% endblock %}

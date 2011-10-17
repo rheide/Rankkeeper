@@ -1,0 +1,27 @@
+{% extends "ml/base_core.html" %}
+
+{% block content %}
+        
+        <h2>Contact</h2>
+		<form name="theform" action="." method="post" id="theform">
+		{% csrf_token %}
+		<table>
+        	<tr>
+        		<th><label id="id_name">Name:</label></th>
+        		<td><input type="text" name="name" value="{{ user.username }}" id="name" /></td>
+        	</tr>
+            <tr>
+            	<th><label id="id_email">Email:</label></th>
+            	<td><input type="text" name="email" value="{{ user.email }}" id="Email" /></td>
+            </tr>
+            <tr>
+            	<th colspan="2"><label id="id_message" style="text-align:left;">Message:</label></th>
+            </tr>
+            <tr>
+            	<td colspan="2"><textarea name="message" rows="8" cols="37"></textarea></td>
+            </tr>
+		</table>
+		<input type="submit" value="Send" />
+		</form>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+Big issues
+- Paste url: which media type is it?
+   - We need to let the user pick status!
+- Business key generation for media
+   - How to generate unique key for each media type?
+   - Key generation different for each media type?
+   - Who is responsible? Each website importer? Or a base class? Or a base class per media type?
+- How to merge media?
+   - Is media merging necessary? If the business key is chosen correctly there should not be a need for merging
+   - ..except for merging MediaList source media with other source media?
+- Do we let users input their own media unsourced? And how?
+   - Let them generate a unique business key?
+   - How can this be done elegantly and smoothly, without asking the user to fill in a bunch of items every time they want to add media?
+   - A search function that matches stuff in a smart way? - eg. when a single partial match is found, add a rating? or just show a list of media instead that can be clicked on. but what if the user wants to insert a new item?
+
+Summary:
+- Insert from URL: which media type?
+- Cross-site unique media-type-dependent identifier key generation
+- Adding new media: how to add new stuff quickly and efficiently?
+- Avoid storing of information about media at all costs! 
+    - Duration?
+    - Author/ Actors? 
+    - Year/Date of release
+
+* javascript client-side url parsers
+   - detect url, load media types
+   - if url not supported, display message
+* generic unique key builder class 
+   - supply it with media type, it will tell you which fields are required
+   - supply it with values for unique fields, it will give you a key
+
+
+Big question: if I do all this, will I be satisfied enough with my website that I will use it for my own purposes instead of all those other websites?
+

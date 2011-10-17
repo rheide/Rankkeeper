@@ -1,0 +1,37 @@
+<ul class="pager">
+	
+{% if has_previous %}
+	<li class="previous"></li>	
+   		<a href="{{ query_param }}page={{ previous }}">&lt; Previous</a>
+   	</li>
+{% else %}
+	<li class="previous-off">&lt; Previous</li>
+{% endif %}
+
+{% if show_first %}
+	<li><a href="{{ query_param }}page=1">1</a></li>
+{% endif %}
+
+{% for linkpage in page_numbers %}
+   {% ifequal linkpage page %}
+      <li class="active">{{ page }}</li>
+   {% else %}
+      <li>
+      	<a href="{{ query_param }}page={{ linkpage }}">{{ linkpage }}</a>
+      </li>
+   {% endifequal %}
+{% endfor %}
+
+{% if show_last %}
+   <li><a href="{{ query_param }}page={{ pages }}">{{ pages }}</a></li>
+{% endif %}
+
+{% if has_next %}
+	<li class="next">
+		<a href="{{ query_param }}page={{ next }}">Next &gt;</a>
+	</li>
+{% else %}
+	<li class="next-off">Next &gt;</li>
+{% endif %}
+
+</ul>

@@ -1,0 +1,6 @@
+
+registration
+whoosh 0.3.18
+mysql ?
+haystack 1.1 alpha
+

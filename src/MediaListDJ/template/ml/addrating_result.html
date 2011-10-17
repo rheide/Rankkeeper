@@ -1,0 +1,15 @@
+{% extends "ml/base_core.html" %}
+
+{% block content %}
+
+{% if media %}
+<p>
+<a href="{% url ml_media media.id %}">Back to {{ media.name }}</a>
+</p>
+{% endif %}
+
+<p>
+<a href="{% url ml_home %}">Back to index</a>
+</p>
+
+{% endblock %}

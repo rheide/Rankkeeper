@@ -1,0 +1,34 @@
+{% load ml_extras %}
+<tr id="row{{ re.id }}" class="{{ re.status.baseStatus.name }}">
+
+<td>{{ re.date|date:"Y-m-d" }}</td>
+
+{% if not hidemedianame %}
+<td>
+	{{ re|sourceLinks }}
+	<a href="{% url ml_media re.media.id %}">{{ re.media.name }}</a>
+</td>
+{% endif %}
+
+{% if not hidemediatype %}
+<td><a href="{% url ml_list-type disp_user.username re.media.type.name|urlify %}">{{ re.media.type.name }}</a></td>
+{% endif %}
+
+<!-- status -->
+<td>{{ re.status.name }}</td>
+
+<!-- progress -->
+<td>
+	{% if re.complex %}
+		Uh, complex
+	{% else %}
+		{% for tp in re|typeRatings %}
+			{{ tp|htmlProgressReadOnly }}<br/>
+		{% endfor %}
+	{% endif %}
+</td>
+
+<!--  rating -->
+<td>{{ re|star_ro }}</td>
+
+</tr>

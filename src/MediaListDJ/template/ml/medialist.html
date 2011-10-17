@@ -1,0 +1,27 @@
+{% extends "ml/base_core.html" %}
+
+{% load ml_extras %}
+
+{% block content %}
+
+{% if user.is_authenticated and disp_user.username = user.username %}
+<form name="addexternal" action="{% url ml_addexternal %}" method="POST">
+<input type="hidden" name="media_rating" id="media_rating" value="0" />
+{% csrf_token %}
+<table style="width:100%">
+	<tr>
+		<td colspan="3">Add a new rating here by <a href="{% url ml_static 'supported_sites' %}">pasting a URL</a> from IMDB (example: <a href="http://www.imdb.com/title/tt0167260/">http://www.imdb.com/title/tt0167260/</a>):</td>
+	</tr>
+	<tr>
+		<td><input type="text" style="width:100%;" name="media_url" value="http://www.imdb.com/title/tt0898266/" /></td>
+		<td style="padding-left: 4px; width: 80px;">{{ 0|star:-1 }}</td>
+		<td class="mldelete" style="text-align:left;"><input type="submit" value="Add" /></td>
+	</tr>
+</table>
+</form>
+<br/>
+{% endif %}
+
+{% include "ml/data_ratinglist.html" %}
+
+{% endblock %}

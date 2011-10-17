@@ -1,0 +1,45 @@
+{% extends "ml/base_core.html" %}
+
+{% block content %}
+
+<h2>About RankKeeper</h2>	
+<p>
+RankKeeper is a work-in-progress project that aims to provide 
+the user the ability to rate any media that he has seen, read or experienced. 
+This can be anything from movies and books to toys, rides in an amusement park 
+or even a dish at a local restaurant.
+</p>
+<p>
+RankKeeper aims to create a database of all kinds of media that will be maintained
+by a community of users. Its primary goal is to provide you with an all-in-one
+application that keeps track of everything you've seen and done, and what you thought
+of it. It's easy to forget that movie that you saw five years ago but can't remember 
+the title of. With this website you won't ever forget again.  
+</p>
+<p>
+You can compare your ratings with that of others, and you can add users as friends to 
+see what they've done recently, and what they thought of it. You'll be able to find
+people with similar taste in a variety of subjects. 
+</p>
+<p>
+The goal of this site is not to replace existing sites like IMDB or Amazon, but rather to 
+augment them. Each individual site is usually aimed towards the media in question (IMDB for movies, 
+Amazon for books, etc.), but none of them is geared towards the user. It's easy to see what
+all users thought of a particular movie or book, but it's not easy to see if a user who liked
+the movie also liked the book. 
+</p>
+<p>
+This website is still very much a work in progress and we are always looking for talented developers 
+to help. If you have interest and experience in the following fields then please 
+<a class="fancylink" href="{% url ml_contact %}">contact</a> us.</p>
+<ul>
+<li>Web development - user interface design and graphics design</li>
+<li>Community management - forum administration, moderating etc.</li>
+<li>Media - we need movie names, book names etc. to import into our database. Lists of media and import tools are required.</li>
+</ul>
+<br/>
+<br/>
+<a class="fancylink" href="{% url ml_static 'supported_sites' %}">Click here to see a list of websites that are currently supported.</a>
+<br/>
+<center><h5>RankKeeper 1.6.0</h5></center>
+{% endblock %}

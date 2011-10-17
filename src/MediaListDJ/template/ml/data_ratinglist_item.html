@@ -1,0 +1,53 @@
+{% load ml_extras %}
+<tr id="row{{ re.id }}" class="{{ re.status.baseStatus.name }}">
+
+<td class="mldate" id="ml_date_{{ re.id }}">
+	<a href="javascript:editDate({{ re.id }},'{{ re.date|date:"Y-m-d" }}');">{{ re.date|date:"Y-m-d" }}</a>
+</td>
+
+{% if not hidemedianame %}
+<td class="mlname">
+	{{ re|sourceLinks }}
+	<a href="{% url ml_media re.media.id %}">{{ re.media.name }}</a>
+</td>
+{% endif %}
+
+{% if not hidemediatype %}
+<td class="mltype"><a href="{% url ml_list-type disp_user.username re.media.type.name|urlify %}">{{ re.media.type.name }}</a></td>
+{% endif %}
+
+<!-- status -->
+<td class="mlstatus">
+	<select class="status" id="ml_status_{{ re.id }}" name="media_status" onChange="setItemStatus({{ re.id }}, this.options[this.selectedIndex].value);">
+	{% for s in statuses|hash:re.media.type.id %}
+		<option value="{{ s.id }}" {% if s.id = re.status.id %}selected{%endif%} >{{ s.name }}</option>
+	{% endfor %}
+	</select>
+</td>
+
+<!-- progress -->
+<td class="mlprogress">
+	{% if re.complex %}
+		Uh, complex
+	{% else %}
+		{% for tp in re|typeRatings %}
+			<select style="width:100%" id="ml_progress_{{ re.id }}_{{ tp.type.id }}" class="progress"
+				name="media_progress" onChange="setItemProgress({{ re.id }}, {{ tp.type.id }}, this.options[this.selectedIndex].value);" 
+				{% if not re.status.durationEditable or tp.isEmptyRange %} disabled="true" {% endif %}>
+				{{ tp.htmlProgressOptions }}
+			</select>
+		{% endfor %}
+	{% endif %}
+</td>
+
+<!--  rating -->
+<td class="mlrating">
+	<input type="hidden" id="mrok_{{ re.id }}" value="{% if re.status.allowRating %}1{% else %}0{% endif %}" />
+	{{ re|star }}
+</td>
+
+<td class="mldelete">
+	<input type="checkbox" value="{{ re.id }}" name="delrating" />
+</td>
+
+</tr>

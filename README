@@ -1,0 +1,11 @@
+This is the source code of the server on www.moodlogger.net. 
+
+Note: this is a dead project. I do not have time to work on this any more. This project was a great learning experience for me and basically taught me how to use Django. If you feel like cloning the site and making an exact copy I welcome it. I hope it can be of use to someone.
+
+This project contains:
+- The usual views and models
+- A horrible IMDB scraper that I am very ashamed of having written
+- A framework for adding scrapers for other websites (that I never got around to using)
+- An Ajax rating framework basically copied from www.anime-planet.com, but with the added option of being able to rate a media more than once.
+- Some backend utilities to periodically scrape imdb pages, update search indexes and make database backups
+- A bunch of third-party libraries that each have their own copyright.

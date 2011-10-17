@@ -1,0 +1,10 @@
+INSERT INTO ml_mediatype (id,name,parent_id,duration_unit) VALUES (1, 'Movies', null, 'minutes');
+INSERT INTO ml_mediatype (id,name,parent_id,duration_unit) VALUES (2, 'TV Shows', null, 'episodes');
+INSERT INTO ml_mediatype (id,name,parent_id,duration_unit) VALUES (3, 'TV Show Seasons', 2, 'episodes');
+INSERT INTO ml_mediatype (id,name,parent_id,duration_unit) VALUES (4, 'TV Show Episodes', 3, 'minutes');
+INSERT INTO ml_mediatype (id,name,parent_id,duration_unit) VALUES (5, 'Anime', null, 'episodes');
+INSERT INTO ml_mediatype (id,name,parent_id,duration_unit) VALUES (6, 'Anime Episodes', 5, 'minutes');
+INSERT INTO ml_mediatype (id,name,parent_id,duration_unit) VALUES (7, 'Books', null, 'pages');
+INSERT INTO ml_mediatype (id,name,parent_id,duration_unit) VALUES (8, 'Manga', null, 'volumes');
+INSERT INTO ml_mediatype (id,name,parent_id,duration_unit) VALUES (9, 'Manga Volumes', 8, 'chapters');
+INSERT INTO ml_mediatype (id,name,parent_id,duration_unit) VALUES (10, 'Manga Chapters', 9, 'pages');

@@ -1,0 +1,49 @@
+{% load ml_extras %}
+
+<tr id="row{{ media.id }}"
+{% if re %}class="{{ re.status.baseStatus.name }}" %}
+{% else %}class="unseen"{% endif %}>
+
+	<td class="mlname">
+		{{ re|sourceLinks:media }}
+		<a href="{% url ml_media media.id %}">{{ media.name }}</a>
+		<input type="hidden" id="re_{{ media.id }}" value="{% if re %}{{ re.id }}{% else %}0{% endif %}" />
+	</td>
+	
+	<td class="mltype">
+		{% if disp_user %} 
+			<a href="{% url ml_list-type disp_user.username media.type.name|urlify %}">{{ media.type.name }}</a>
+		{% else %}{{ media.type.name }}{% endif %}
+	</td>
+	
+	{% if disp_user %}
+	<td class="mlstatus">	<!-- status -->
+		<select class="status" id="ml_status_{{ media.id }}" name="media_status" onChange="setMediaItemStatus({{ media.id }}, this.options[this.selectedIndex].value);">
+			<option value="0" {% if not re %}selected{% endif %}></option>
+		{% for s in statuses|hash:media.type.id %}
+			<option value="{{ s.id }}" {% if s.id = re.status.id %}selected{%endif%} >{{ s.name }}</option>
+		{% endfor %}
+		</select>
+	</td>
+	
+	<td class="mlprogress">
+		{% if re.complex %}
+			Uh, complex
+		{% else %}
+			{% for tp in re|typeRatings:media %}
+				<select style="width:100%" id="ml_progress_{{ media.id }}_{{ tp.type.id }}" class="progress"
+					name="media_progress" onChange="setMediaItemProgress({{ media.id }}, {{ tp.type.id }}, this.options[this.selectedIndex].value);" 
+					{% if tp.isEmptyRange or not re.status.durationEditable %} disabled="true" {% endif %}>		
+					{{ tp.htmlProgressOptions }}
+				</select>
+			{% endfor %}
+		{% endif %}
+	</td>
+	
+	<td class="mlrating">
+		<input type="hidden" id="mrok_{{ media.id }}" value="{% if re and re.status.allowRating %}1{% else %}0{% endif %}" />
+		{{ media|media_star:re }}
+	</td>
+	
+	{% endif %}
+</tr>

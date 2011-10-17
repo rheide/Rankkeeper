@@ -1,0 +1,63 @@
+{% load ml_extras %}
+
+
+
+<div id="mldiv">
+<form id="ml_fod" name="filterordelete" method="post" action="javascript:mlfilter();" >
+<input type="hidden" id="ml_delete_url" value="{% url ml_deleterating %}"/>
+{% csrf_token %}
+<table class="medialist">
+	{% if not hideratingheader %}
+	<tr class="first">
+		<th class="mldate mltopleft">Date</th>
+		{% if not hidemedianame %}
+			<th class="mlname">
+				Title&nbsp;
+				<input type="text" id="mlfn" name="n" value="{{ filter_title }}"/>
+				<input type="button" value="filter" onclick="mlfilter();"/>
+			</th>
+		{% endif %}
+		{% if not hidemediatype %}<th class="mltype">Type</th>{% endif %}
+		<th class="mlstatus">Status</th>
+		<th class="mlprogress">Progress</th>
+		{% if editable %}
+		<th class="mlrating">Rating</th>
+		<th class="mldelete mltopright">&nbsp;</th>
+		{% else %}
+		<th class="mlrating mltopright">Rating</th>
+		{% endif %}
+	</tr>
+	{% endif %}
+	{% for re in ratings_list %}
+		{% if editable %}
+			{% include "ml/data_ratinglist_item.html" %}
+		{% else %}
+			{% include "ml/data_ratinglist_item_ro.html" %}
+		{% endif %}
+	{% endfor %}
+	<tr class="last">
+		<th {% if hidemedianame and hidemediatype %} colspan="5"{% endif %}
+			{% if hidemedianame or hidemediatype %} colspan="6"{% else %}
+			colspan="7"{% endif %}
+			style="text-align:center; padding-left: 16px; padding-top: 4px; padding-right: 16px;" 
+			class="mlbottomleft mlbottomright">
+		
+			{% if ratings_list|length = 0 %}
+				No results. 
+			{% else %}
+				{% if is_paginated %}
+					{% load paginator %}{% paginator 6 %}
+				{% endif %}
+			{% endif %}
+				
+			{% if editable %}
+				<input style="float:right;" type="button" value="Delete" onclick="javascript:deleteMedia();"/>
+			{% endif %}
+		</th>
+	</tr>
+</table>
+</form>
+</div>
+
+<br/>
+<br/>

@@ -1,0 +1,59 @@
+{% extends "ml/base_core.html" %}
+
+{% block title %}RankKeeper - Search{% endblock %}
+
+{% block content %}
+
+{% load ml_extras %}
+<h2>Search</h2>
+
+<form method="get" action=".">
+    <table>
+    	<tr>
+    		<td><label for="id_q">Search:</label></td>
+    		<td>{{ form.q }}</td>
+    		<td><label for="id_t">&nbsp;</label></td>
+    		<td>{{ form.t }}</td>
+    		<td>
+                <input type="submit" value="Search">
+            </td>
+    	</tr>
+    </table>
+</form>
+
+{% if query %}
+
+<h3>Results</h3>
+{% if empty %}
+	<p>No results found</p>
+{% else %}
+<table class="searchlist">
+	<tr class="first">
+		<th class="mltopleft" style="text-align:left; padding-left: 16px;">Name</th>
+		{% if disp_user %}
+		<th>Type</th>
+		<th>Status</th>
+		<th>Progress</th>
+		<th class="mltopright">Rating</th>
+		{% else %}
+		<th class="mltopright">Type</th>
+		{% endif %}
+	</tr>
+{% for media,re in rating_results %}
+	{% include "ml/data_searchlist_item.html" %}
+{% endfor %}
+	<tr class="last">
+		<th {% if disp_user %}colspan="5"{% else %}colspan="2"{% endif %} 
+			class="mlbottomleft mlbottomright" 
+			style="padding-left: 16px; padding-right: 16px;">
+			{% load paginator %}
+			{% paginator 6 %}
+		</th>
+	</tr>
+</table>
+{% endif %}
+
+{% endif %}
+
+<br/><br/>
+{% endblock %}

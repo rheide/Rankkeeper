@@ -1,0 +1,11 @@
+Dear user,
+
+thank you for registering with RankKeeper. Click the following link to activate your account:
+
+http://{{ site.domain }}/user/activate/{{activation_key}}
+
+See you around!
+
+ - {{ site.name }} - 
+
+ 

@@ -1,0 +1,10 @@
+INSERT INTO ml_status (type_id, basestatus_id, name, `default`) (SELECT 1 AS type_id, s.id, s.name, id = 3 FROM ml_basestatus s);
+INSERT INTO ml_status (type_id, basestatus_id, name, `default`) (SELECT 2 AS type_id, s.id, s.name, id = 3 FROM ml_basestatus s);
+INSERT INTO ml_status (type_id, basestatus_id, name, `default`) (SELECT 3 AS type_id, s.id, s.name, id = 3 FROM ml_basestatus s);
+INSERT INTO ml_status (type_id, basestatus_id, name, `default`) (SELECT 4 AS type_id, s.id, s.name, id = 3 FROM ml_basestatus s);
+INSERT INTO ml_status (type_id, basestatus_id, name, `default`) (SELECT 5 AS type_id, s.id, s.name, id = 3 FROM ml_basestatus s);
+INSERT INTO ml_status (type_id, basestatus_id, name, `default`) (SELECT 6 AS type_id, s.id, s.name, id = 3 FROM ml_basestatus s);
+INSERT INTO ml_status (type_id, basestatus_id, name, `default`) (SELECT 7 AS type_id, s.id, s.name, id = 3 FROM ml_basestatus s);
+INSERT INTO ml_status (type_id, basestatus_id, name, `default`) (SELECT 8 AS type_id, s.id, s.name, id = 3 FROM ml_basestatus s);
+INSERT INTO ml_status (type_id, basestatus_id, name, `default`) (SELECT 9 AS type_id, s.id, s.name, id = 3 FROM ml_basestatus s);
+INSERT INTO ml_status (type_id, basestatus_id, name, `default`) (SELECT 10 AS type_id, s.id, s.name, id = 3 FROM ml_basestatus s);

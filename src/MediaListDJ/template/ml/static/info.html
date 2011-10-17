@@ -1,0 +1,56 @@
+{% extends "ml/base_core.html" %}
+
+{% if not user.is_authenticated %}
+	{% block search %}{% endblock %}
+{% endif %}
+
+{% block content %}
+
+<table style="width: 100%">
+<tr valign="top">
+<td>
+<h2>Welcome to RankKeeper!</h2>
+<p>
+RankKeeper is a service that you can use to keep track of everything you've rated on 
+the internet: movies, tv shows, books, beer, restaurants, you name it. RankKeeper will 
+present you with a list of all the things you've rated. It'll also give you the option of tracking
+your progress. Here's how it works:<br/>
+<ul>
+	<li>Type the name of your movie/book/item and <a class="fancylink" href="{% url haystack_search %}">search on RankKeeper</a>, OR:</li>
+	<li>Paste the link directly from a <a class="fancylink" href="{% url ml_static 'supported_sites' %}">supported website</a></li>
+	<li>Rate it, set your progress if you like, and you're done!</li>
+</ul>
+</p>
+<img src="/static/images/example.png" alt="Example" title="Example"/><br/>
+<p>RankKeeper can keep track of your ratings on <a class="fancylink" href="{% url ml_static 'supported_sites' %}">other websites</a> and synchronize your ratings. You can 
+still continue to use your preferred website of choice while enjoying the benefits of RankKeeper's more 
+advanced rating system.</p>
+<p>
+All your ratings can be viewed easily <a class="fancylink" href="/static/images/example2.png">in a list</a>. Your list can be shared with others if you like. We respect your privacy, of course, so you decide if you want to publish your list or not. <a class="fancylink" href="{% url ml_list 'example' %}" class="fancylink">Click here to see an example of a public list.</a> 
+</p>
+<hr/>
+<p>
+RankKeeper is a young project and has only just started. There will be many new features in the future. Here's a sneak preview of some of the 
+things we've got planned:
+<ul>
+	<li>Import your list from other sites such as amazon.com, and many others.</li>
+	<li>Statistics on your progress: think of how thrilled you'll be after finding out that you've spent 6 months of your life watching tv shows!</li>
+	<li>Recommendations: find out similar things of any type: books, movies, anything!</li>
+</ul>
+</p>
+
+<p>
+Start now! <a class="fancylink" style="font-weight: bold;" href="{% url registration_register %}">Click here to create an account.</a> 
+</p>
+
+</td>
+{% if not user.is_authenticated %}
+<td style="width:20%; padding-top: 40px;" class="login">
+	{% include "ml/data_login.html" %}
+</td>
+{% endif %}
+
+</tr>
+</table>
+
+{% endblock %}

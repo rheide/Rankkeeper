@@ -1,0 +1,24 @@
+{% extends "ml/base_core.html" %}
+
+{% block content %}
+
+<h2>Register new user</h2>
+
+{% if form.errors %}
+    <br/>
+    <center>
+    <span class="error">Sorry, that's not a valid username or password</span>
+    </center>
+    <br/>
+    {{ form.errors }}<br/>
+{% endif %}
+
+<form action="." method="POST">
+{% csrf_token %}
+<table>
+{{ form.as_table }}
+</table>
+<input type="submit" value="Register" />
+</form>
+
+{% endblock %}
